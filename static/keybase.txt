@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/brdbkr
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://brad.fi
+  * I am brdbkr (https://keybase.io/brdbkr) on keybase.
+  * I have a public key ASB1OYiYfm79mXgMAGeTfO7sMzzl6AEsObSiaEVHd4RVswo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120753988987e6efd99780c0067937ceeec333ce5e8012c39b4a2684547778455b30a",
+      "host": "keybase.io",
+      "kid": "0120753988987e6efd99780c0067937ceeec333ce5e8012c39b4a2684547778455b30a",
+      "uid": "b00f480ac9e4a378f7880c8fe7f81d19",
+      "username": "brdbkr"
+    },
+    "merkle_root": {
+      "ctime": 1629417651,
+      "hash": "4c276bfd05141716ad043ac9746a1a7efd4fcbca7dd87ce3b483feb1e4d56cc543b417243f44fa47bbb05f899ba2c19c8597903fc4730effb7dfd094eadb6278",
+      "hash_meta": "9348f545b27dea02f045b9956dc8dc500cf03f764c3abfc392cb9d40d985e386",
+      "seqno": 20599398
+    },
+    "service": {
+      "entropy": "9IzJRJROnPs9SOklLabNtks2",
+      "hostname": "brad.fi",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.7.0"
+  },
+  "ctime": 1629417690,
+  "expire_in": 504576000,
+  "prev": "888c568b25d96174a39d2533244c38f9343b093dd3f4f3d83b89d3d8315ddc58",
+  "seqno": 5,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgdTmImH5u/Zl4DABnk3zu7DM85egBLDm0omhFR3eEVbMKp3BheWxvYWTESpcCBcQgiIxWiyXZYXSjnSUzJEw4+TQ7CT3T9PPYO4nT2DFd3FjEIAbpGQ/k2+iABZrLFtVFLHEV2NAgjvNKVHAlLUA+F2B0AgHCo3NpZ8RA009sCt3iVetMjaPzAEsNzSSMUVdtGSruaomiEXziN0qU6fO0NtbDc78pjVJI8FT4RoaTIejl+AIb1Bm4lDJmAKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIDWofj/EMUWmjXDIQQR8jC4Hhf/ZGtdBjmKoskai1g8ho3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/brdbkr
+
+==================================================================

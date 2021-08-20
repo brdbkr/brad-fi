@@ -1,9 +1,16 @@
 baseURL = 'https://www.brad.fi/'
 languageCode = 'en-us'
-title = 'Brad Baker'
+title = 'Brad Baker - brad.fi'
 theme = "smol"
-publishDir = '/var/www/brad-fi/html/'
+publishDir = '/var/www/brad-fi/html'
 copyright = "©"
+
+[permalinks]
+'/' = '/:filename/'
+
+[frontmatter]
+lastmod = [':git', 'lastmod', 'date', 'publishDate']
+publishDate = ['publishDate', 'date']
 
 # Parameters
 [params]
@@ -13,35 +20,19 @@ copyright = "©"
 # Header
 [menu]
   [[menu.main]]
-        identifier = "posts"
-        name = "Posts"
-        url = "/posts/"
+        identifier = "about"
+        name = "About"
+        url = "/about/"
         weight = 1 
 
   [[menu.main]]
-        identifier = "categories"
-        name = "Categories"
-        url = "/categories/"
+        identifier = "contact"
+        name = "Contact"
+        url = "/contact/"
         weight = 2 
 
   [[menu.main]]
-        identifier = "tags"
-        name = "Tags"
-        url = "/tags/"
-        weight = 3
-
-# Footer
-  [[menu.footer]]
-        name = "Github"
-        url = "https://github.com/example"
-        weight = 1 
-
-    [[menu.footer]]
-        name = "Mastodon"
-        url = "https://example.com/@user"
-        weight = 2 
-
-    [[menu.footer]]
-        name = "Imprint"
-        url = "/imprint"
+        identifier = "notes"
+        name = "Notes"
+        url = "/notes/"
         weight = 3
