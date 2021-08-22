@@ -1,11 +1,12 @@
 # https://www.brad.fi
 
-Running on hugo.
+Running on [hugo](https://github.com/gohugoio/hugo).
 
 ## Subdomains
 
-* [git.brad.fi] - Gitea
-* [links.brad.fi] - Linkding
+* [git.brad.fi] - [Gogs](https://github.com/gogs/gogs)
+* [links.brad.fi] - [Linkding](https://github.com/sissbruecker/linkding)
+* [docs.brad.fi] - [Teedy](https://github.com/sismics/docs) (f.k.a. Sismics Docs)
 
 ## Author
 
