@@ -5,9 +5,7 @@ date: 2021-08-14T22:15:11Z
 # Installing and using GmSSL on a Kali VM
 
 ## What is GmSSL?
-[GmSSL](https://gmssl.org/) is an [open-source](https://github.com/guanzhi/GmSSL/) utility branched from OpenSSL and designed to support algorithms, hashes, and ciphers deemed suitable and thus mandated by the State Cryptography Administration of China, also referred to within the CCP as the Office of the Central Cryptography Leading Group. It is developed and maintained by Peking University's Information Security Laboratory and used by companies such as Baidu, Huawei, and Tencent. 
-
-Development of [GmSSL V3](https://github.com/guanzhi/gmssl-v3-dev) is ongoing.
+[GmSSL](https://gmssl.org/) is an [open-source](https://github.com/guanzhi/GmSSL/) utility branched from OpenSSL and designed to support algorithms, hashes, and ciphers deemed suitable and thus mandated by the State Cryptography Administration of China, also referred to within the CCP as the Office of the Central Cryptography Leading Group. It is developed and maintained by Peking University's Information Security Laboratory and used by companies such as Baidu, Huawei, and Tencent. Development of [GmSSL V3](https://github.com/guanzhi/gmssl-v3-dev) is ongoing.
 
 ## Installation
 Installing GmSSL seems to work fine, but trying to run `gmssl` throws an error:
@@ -21,7 +19,7 @@ $ gmssl version
 gmssl: symbol lookup error: gmssl: undefined symbol: BIO_debug_callback, version OPENSSL_1_1_0d
 ```
 
-This is a problem with `libssl.so.1.1`, a version of which is required by both GmSSL and OpenSSL.
+This is a problem with `libssl.so.1.1` and `libcrypto.so.1.1`, versions of which are required by both GmSSL and OpenSSL.
 
 As GmSSL is designed to serve as a full replacement for OpenSSL, its `Makefile` puts its own copies of all the necessary files, including libraries, in a folder with the `gmssl` binary, `/usr/local/gmssl` by default. It's laid out like so:
 
@@ -38,10 +36,10 @@ $ tree /usr/local/gmssl -L 2
 │   ├── engines-1.1
 │   ├── libcrypto.a
 │   ├── libcrypto.so -> libcrypto.so.1.1
-│   ├── libcrypto.so.1.1
+│   ├── libcrypto.so.1.1	# dynamic library
 │   ├── libssl.a
 │   ├── libssl.so -> libssl.so.1.1
-│   ├── libssl.so.1.1		# problematic dynamic library
+│   ├── libssl.so.1.1		# dynamic library
 │   └── pkgconfig
 ├── share
 │   ├── doc
