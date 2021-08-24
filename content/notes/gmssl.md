@@ -32,6 +32,45 @@ gmssl: symbol lookup error: gmssl: undefined symbol: BIO_debug_callback, version
 ## Makefile inspection
 `$ sudo make uninstall ; sudo make clean`
 
+## Inspecting the `gmssl` binary
+```
+$ file gmssl
+gmssl: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=52bb0f6115f7c840ef03fa854fff33e97602da8a, for GNU/Linux 3.2.0, not stripped
+$ readelf -d gmssl
+
+Dynamic section at offset 0xa1cd8 contains 29 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libssl.so.1.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libcrypto.so.1.1]
+ 0x0000000000000001 (NEEDED)             Shared library: [libpthread.so.0]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x000000000000000c (INIT)               0x2d000
+ 0x000000000000000d (FINI)               0x82ca4
+ 0x0000000000000019 (INIT_ARRAY)         0xa25b0
+ 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
+ 0x000000000000001a (FINI_ARRAY)         0xa25b8
+ 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
+ 0x000000006ffffef5 (GNU_HASH)           0x308
+ 0x0000000000000005 (STRTAB)             0x8378
+ 0x0000000000000006 (SYMTAB)             0x3c8
+ 0x000000000000000a (STRSZ)              24908 (bytes)
+ 0x000000000000000b (SYMENT)             24 (bytes)
+ 0x0000000000000015 (DEBUG)              0x0
+ 0x0000000000000003 (PLTGOT)             0xa3000
+ 0x0000000000000002 (PLTRELSZ)           31680 (bytes)
+ 0x0000000000000014 (PLTREL)             RELA
+ 0x0000000000000017 (JMPREL)             0x25248
+ 0x0000000000000007 (RELA)               0xf018
+ 0x0000000000000008 (RELASZ)             90672 (bytes)
+ 0x0000000000000009 (RELAENT)            24 (bytes)
+ 0x000000006ffffffb (FLAGS_1)            Flags: PIE
+ 0x000000006ffffffe (VERNEED)            0xef68
+ 0x000000006fffffff (VERNEEDNUM)         4
+ 0x000000006ffffff0 (VERSYM)             0xe4c4
+ 0x000000006ffffff9 (RELACOUNT)          3737
+ 0x0000000000000000 (NULL)               0x0
+```
+
 ## Using ldd and patchelf to modify binary
 https://www.fatalerrors.org/a/0tl00jk.html
 
