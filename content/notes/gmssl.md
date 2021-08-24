@@ -105,6 +105,8 @@ $ ldd -v gmssl
                 libc.so.6 (GLIBC_2.2.5) => /lib/x86_64-linux-gnu/libc.so.6
 ```
 
+Using `nm` we can enumerate all the symbols in a given dynamic library (`.so`) file:
+
 ```
 $ nm /usr/local/gmssl/lib/libcrypto.so.1.1
 0000000000090a60 T a2d_ASN1_OBJECT
@@ -113,19 +115,40 @@ $ nm /usr/local/gmssl/lib/libcrypto.so.1.1
 ... # continues to 7,738 lines
 ```
 
+`nm` gives us thousands of lines of output; luckily we can `grep` the output for `BIO_debug_callback`, the exact symbol GmSSL says is undefined:
+
 ```
 $ nm /usr/local/gmssl/lib/libcrypto.so.1.1 | grep -i bio_debug
 00000000000ae2d0 T BIO_debug_callback
 ```
 
-Compare with...
+Looks like the program will run if we can point it to the correct library, GmSSL's version of `libcrypto.so.1.1`. To check, let's compare that file with OpenSSL's version:
 
 ```
 $ nm /usr/local/lib/libcrypto.so.1.1
 nm: /usr/local/lib/libcrypto.so.1.1: no symbols
 ```
 
-`sudo patchelf --force-rpath --set-rpath /usr/local/gmssl/lib gmssl`
+The problem is confirmed - GmSSL is looking in OpenSSL's library for symbols that don't exist. So how can we change where GmSSL looks for runtime libraries? A common tool is `chrpath` which sadly won't work for us, as our GmSSL binary currently lacks any `RUNPATH`/`RPATH` tags:
+
+```
+$ readelf -d gmssl | grep -E "RUNPATH|RPATH"
+[no output]
+```
+
+Instead we can install and run `patchelf` to modify the `RUNPATH`, which lists directories containing dependency libraries:
+
+```
+$ sudo apt install patchelf
+$ sudo patchelf --force-rpath --set-rpath /usr/local/gmssl/lib gmssl
+```
+
+And... success! GmSSL now runs perfectly:
+
+```
+$ gmssl version
+GmSSL 2.5.4 - OpenSSL 1.1.0d  19 Jun 2019
+```
 
 https://trugman-internals.com/elf-loaders-libraries-executables/
 https://docs.oracle.com/cd/E19957-01/806-0641/6j9vuquit/index.html
