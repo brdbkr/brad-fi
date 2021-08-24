@@ -12,36 +12,45 @@ Development of [GmSSL V3](https://github.com/guanzhi/gmssl-v3-dev) is ongoing.
 ## Installation
 Installing GmSSL went as expected.
 
+```
 $ curl -LO "https://github.com/guanzhi/GmSSL/archive/master.zip"
 $ unzip master.zip
 $ ./config ; make ; sudo make install
+```
 
 ## Troubleshooting the error
+```
 $ gmssl version
 gmssl: symbol lookup error: gmssl: undefined symbol: BIO_debug_callback, version OPENSSL_1_1_0d
+```
 
-$ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+`$ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH`
 
 ## OpenSSL breaks
-openssl: symbol lookup error: openssl: undefined symbol: BIO_debug_callback, version OPENSSL_1_1_0d
+`openssl: symbol lookup error: openssl: undefined symbol: BIO_debug_callback, version OPENSSL_1_1_0d`
 
 ## Makefile inspection
-$ sudo make uninstall ; sudo make clean
+`$ sudo make uninstall ; sudo make clean`
 
 ## Using ldd and patchelf to modify binary
 https://www.fatalerrors.org/a/0tl00jk.html
 
 Installed: patchelf, chrpath, 
 
+```
 $ patchelf gmssl --print-rpath libssl.so.1.1
 patchelf: getting info about 'libssl.so.1.1': No such file or directory
+```
 
+```
 $ patchelf --print-needed gmssl
 libssl.so.1.1
 libcrypto.so.1.1
 libpthread.so.0
 libc.so.6
+```
 
+```
 $ ldd -v gmssl
         linux-vdso.so.1 (0x00007fff817d2000)
         libssl.so.1.1 => /usr/local/lib/libssl.so.1.1 (0x00007f42660f4000)
@@ -94,20 +103,27 @@ $ ldd -v gmssl
                 libc.so.6 (GLIBC_PRIVATE) => /lib/x86_64-linux-gnu/libc.so.6
                 libc.so.6 (GLIBC_2.4) => /lib/x86_64-linux-gnu/libc.so.6
                 libc.so.6 (GLIBC_2.2.5) => /lib/x86_64-linux-gnu/libc.so.6
+```
 
+```
 $ nm /usr/local/gmssl/lib/libcrypto.so.1.1
 0000000000090a60 T a2d_ASN1_OBJECT
 000000000009d7c0 T a2i_ASN1_ENUMERATED
 000000000009d470 T a2i_ASN1_INTEGER
-...7738 lines
+... # continues to 7,738 lines
+```
 
+```
 $ nm /usr/local/gmssl/lib/libcrypto.so.1.1 | grep -i bio_debug
 00000000000ae2d0 T BIO_debug_callback
+```
 
 Compare with...
 
+```
 $ nm /usr/local/lib/libcrypto.so.1.1
 nm: /usr/local/lib/libcrypto.so.1.1: no symbols
+```
 
 `sudo patchelf --force-rpath --set-rpath /usr/local/gmssl/lib gmssl`
 
