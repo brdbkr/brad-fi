@@ -86,20 +86,19 @@ Dynamic section at offset 0xa1cd8 contains 29 entries:
 ## Using `ldd` and `patchelf` to modify the binary
 https://www.fatalerrors.org/a/0tl00jk.html
 
-Installed: patchelf, chrpath, 
+We can also use `patchelf` to see which dependencies are required by `gmssl` and what its `RUNPATH` (or depricated `RPATH`) is. This way we can confirm that 'gmssl' first checks for `libssl.so.1.1`; we also see that `gmssl` has no set `RUNPATH`:
 
 ```
-$ patchelf gmssl --print-rpath libssl.so.1.1
-patchelf: getting info about 'libssl.so.1.1': No such file or directory
-```
-
-```
+$ patchelf gmssl --print-rpath
+[no output]
 $ patchelf --print-needed gmssl
 libssl.so.1.1
 libcrypto.so.1.1
 libpthread.so.0
 libc.so.6
 ```
+
+But which `libssl.so.1.1` file is GmSSL trying to use, if not the one inside the `/usr/local/gmssl` directory? We can run `ldd` in verbose mode to view the full paths of each library, revealing that GmSSL is instead using the libraries in `/usr/local/lib`. `ldd` further breaks down each library by version, allowing us to match the original error thrown by GmSSL with the output `libcrypto.so.1.1 (OPENSSL_1_1_0d)`.
 
 ```
 $ ldd -v gmssl
@@ -131,29 +130,7 @@ $ ldd -v gmssl
                 libcrypto.so.1.1 (OPENSSL_1_1_0f) => /usr/local/lib/libcrypto.so.1.1
                 libcrypto.so.1.1 (OPENSSL_1_1_1) => /usr/local/lib/libcrypto.so.1.1
                 libcrypto.so.1.1 (OPENSSL_1_1_0) => /usr/local/lib/libcrypto.so.1.1
-        /usr/local/lib/libcrypto.so.1.1:
-                libdl.so.2 (GLIBC_2.2.5) => /lib/x86_64-linux-gnu/libdl.so.2
-                libpthread.so.0 (GLIBC_2.2.5) => /lib/x86_64-linux-gnu/libpthread.so.0
-                libc.so.6 (GLIBC_2.15) => /lib/x86_64-linux-gnu/libc.so.6
-                libc.so.6 (GLIBC_2.14) => /lib/x86_64-linux-gnu/libc.so.6
-                libc.so.6 (GLIBC_2.4) => /lib/x86_64-linux-gnu/libc.so.6
-        /lib/x86_64-linux-gnu/libpthread.so.0:
-                ld-linux-x86-64.so.2 (GLIBC_2.2.5) => /lib64/ld-linux-x86-64.so.2
-                ld-linux-x86-64.so.2 (GLIBC_PRIVATE) => /lib64/ld-linux-x86-64.so.2
-                libc.so.6 (GLIBC_2.7) => /lib/x86_64-linux-gnu/libc.so.6
-                libc.so.6 (GLIBC_2.14) => /lib/x86_64-linux-gnu/libc.so.6
-                libc.so.6 (GLIBC_2.3.2) => /lib/x86_64-linux-gnu/libc.so.6
-                libc.so.6 (GLIBC_2.4) => /lib/x86_64-linux-gnu/libc.so.6
-                libc.so.6 (GLIBC_2.2.5) => /lib/x86_64-linux-gnu/libc.so.6
-                libc.so.6 (GLIBC_PRIVATE) => /lib/x86_64-linux-gnu/libc.so.6
-        /lib/x86_64-linux-gnu/libc.so.6:
-                ld-linux-x86-64.so.2 (GLIBC_2.3) => /lib64/ld-linux-x86-64.so.2
-                ld-linux-x86-64.so.2 (GLIBC_PRIVATE) => /lib64/ld-linux-x86-64.so.2
-        /lib/x86_64-linux-gnu/libdl.so.2:
-                ld-linux-x86-64.so.2 (GLIBC_PRIVATE) => /lib64/ld-linux-x86-64.so.2
-                libc.so.6 (GLIBC_PRIVATE) => /lib/x86_64-linux-gnu/libc.so.6
-                libc.so.6 (GLIBC_2.4) => /lib/x86_64-linux-gnu/libc.so.6
-                libc.so.6 (GLIBC_2.2.5) => /lib/x86_64-linux-gnu/libc.so.6
+        ...
 ```
 
 Using `nm` we can enumerate all the symbols in a given dynamic library (`.so`) file:
@@ -190,15 +167,16 @@ $ readelf -d gmssl | grep -E "RUNPATH|RPATH"
 Instead we can install and run `patchelf` to modify the `RUNPATH`, which lists directories containing dependency libraries:
 
 ```
-$ sudo apt install patchelf
 $ sudo patchelf --force-rpath --set-rpath /usr/local/gmssl/lib gmssl
 ```
 
-And... success! GmSSL now runs perfectly:
+And... success! GmSSL and OpenSSL now run perfectly side-by-side:
 
 ```
 $ gmssl version
 GmSSL 2.5.4 - OpenSSL 1.1.0d  19 Jun 2019
+$ openssl version
+OpenSSL 1.1.1k  25 Mar 2021
 ```
 
 https://trugman-internals.com/elf-loaders-libraries-executables/
