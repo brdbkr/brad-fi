@@ -71,7 +71,7 @@ Dynamic section at offset 0xa1cd8 contains 29 entries:
  0x0000000000000000 (NULL)               0x0
 ```
 
-## Using ldd and patchelf to modify binary
+## Using `ldd` and `patchelf` to modify the binary
 https://www.fatalerrors.org/a/0tl00jk.html
 
 Installed: patchelf, chrpath, 
