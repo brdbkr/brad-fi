@@ -10,34 +10,66 @@ date: 2021-08-14T22:15:11Z
 Development of [GmSSL V3](https://github.com/guanzhi/gmssl-v3-dev) is ongoing.
 
 ## Installation
-Installing GmSSL went as expected.
+Installing GmSSL seems to work fine, but trying to run `gmssl` throws an error:
 
 ```
 $ curl -LO "https://github.com/guanzhi/GmSSL/archive/master.zip"
 $ unzip master.zip
 $ ./config ; make ; sudo make install
-```
-
-## Troubleshooting the error
-```
+...
 $ gmssl version
 gmssl: symbol lookup error: gmssl: undefined symbol: BIO_debug_callback, version OPENSSL_1_1_0d
 ```
 
-`$ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH`
+This is a problem with `libssl.so.1.1`, a version of which is required by both GmSSL and OpenSSL.
 
-## OpenSSL breaks
-`openssl: symbol lookup error: openssl: undefined symbol: BIO_debug_callback, version OPENSSL_1_1_0d`
+As GmSSL is designed to serve as a full replacement for OpenSSL, its `Makefile` puts its own copies of all the necessary files, including libraries, in a folder with the `gmssl` binary, `/usr/local/gmssl` by default. It's laid out like so:
 
-## Makefile inspection
-`$ sudo make uninstall ; sudo make clean`
+```
+$ tree /usr/local/gmssl -L 2
+/usr/local/gmssl
+├── bin
+│   ├── c_rehash
+│   ├── gmssl			# GmSSL binary
+│   └── openssl -> gmssl
+├── include
+│   └── openssl
+├── lib
+│   ├── engines-1.1
+│   ├── libcrypto.a
+│   ├── libcrypto.so -> libcrypto.so.1.1
+│   ├── libcrypto.so.1.1
+│   ├── libssl.a
+│   ├── libssl.so -> libssl.so.1.1
+│   ├── libssl.so.1.1		# problematic dynamic library
+│   └── pkgconfig
+├── share
+│   ├── doc
+│   └── man
+└── ssl
+    ├── certs
+    ├── misc
+    ├── openssl.cnf
+    ├── openssl.cnf.dist
+    └── private
+```
+
+An easy solution would be to add the directory containing the dynamic libraries to the `LD_LIBRARY_PATH` environment variable, but this simultaneously fixes GmSSL and breaks OpenSSL. It would be better and more elegant to keep GmSSL entirely self-contained in its `/usr/local/gmssl' directory. 
+
+```
+$ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+$ openssl version
+openssl: symbol lookup error: openssl: undefined symbol: BIO_debug_callback, version OPENSSL_1_1_0d
+```
 
 ## Inspecting the `gmssl` binary
+It's obvious already, but we can run `file` on `gmssl` to confirm it's looking for dynamic libraries rather than having them built into the binary during compilation. We can also use `readelf` to see that `libssl.so.1.1` is the first of four shared libraries required by GmSSL and accessed immediately upon running:
+
 ```
 $ file gmssl
 gmssl: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=52bb0f6115f7c840ef03fa854fff33e97602da8a, for GNU/Linux 3.2.0, not stripped
-$ readelf -d gmssl
 
+$ readelf -d gmssl
 Dynamic section at offset 0xa1cd8 contains 29 entries:
   Tag        Type                         Name/Value
  0x0000000000000001 (NEEDED)             Shared library: [libssl.so.1.1]
@@ -48,27 +80,7 @@ Dynamic section at offset 0xa1cd8 contains 29 entries:
  0x000000000000000d (FINI)               0x82ca4
  0x0000000000000019 (INIT_ARRAY)         0xa25b0
  0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
- 0x000000000000001a (FINI_ARRAY)         0xa25b8
- 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
- 0x000000006ffffef5 (GNU_HASH)           0x308
- 0x0000000000000005 (STRTAB)             0x8378
- 0x0000000000000006 (SYMTAB)             0x3c8
- 0x000000000000000a (STRSZ)              24908 (bytes)
- 0x000000000000000b (SYMENT)             24 (bytes)
- 0x0000000000000015 (DEBUG)              0x0
- 0x0000000000000003 (PLTGOT)             0xa3000
- 0x0000000000000002 (PLTRELSZ)           31680 (bytes)
- 0x0000000000000014 (PLTREL)             RELA
- 0x0000000000000017 (JMPREL)             0x25248
- 0x0000000000000007 (RELA)               0xf018
- 0x0000000000000008 (RELASZ)             90672 (bytes)
- 0x0000000000000009 (RELAENT)            24 (bytes)
- 0x000000006ffffffb (FLAGS_1)            Flags: PIE
- 0x000000006ffffffe (VERNEED)            0xef68
- 0x000000006fffffff (VERNEEDNUM)         4
- 0x000000006ffffff0 (VERSYM)             0xe4c4
- 0x000000006ffffff9 (RELACOUNT)          3737
- 0x0000000000000000 (NULL)               0x0
+...
 ```
 
 ## Using `ldd` and `patchelf` to modify the binary
