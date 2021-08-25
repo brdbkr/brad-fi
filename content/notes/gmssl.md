@@ -24,7 +24,7 @@ This is caused by a line in two files, `Configure` and `test/build.info`:
 use if $^O ne "VMS", 'File::Glob' => qw/glob/;
 ```
 
-Now we change `qw/glob/;` to `qw/:glob/;`:
+Now we change `qw/glob/;` to `qw/:glob/;` in `Configure:18` and `test/build.info:339`:
 
 ```
 use if $^O ne "VMS", 'File::Glob' => qw/:glob/;
@@ -74,13 +74,7 @@ $ tree /usr/local/gmssl -L 2
     └── private
 ```
 
-An easy solution would be to add the directory containing the dynamic libraries to the `LD_LIBRARY_PATH` environment variable, but this simultaneously fixes GmSSL and breaks OpenSSL. It would be better and more elegant to keep GmSSL entirely self-contained in its `/usr/local/gmssl' directory. 
-
-```
-$ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-$ openssl version
-openssl: symbol lookup error: openssl: undefined symbol: BIO_debug_callback, version OPENSSL_1_1_0d
-```
+An easy solution would be to add the directory containing the dynamic libraries to the `LD_LIBRARY_PATH` environment variable, but this simultaneously fixes GmSSL and may break OpenSSL. It would be better and more elegant to keep GmSSL entirely self-contained in its `/usr/local/gmssl` directory. 
 
 ## Inspecting the `gmssl` binary
 It's obvious already, but we can run `file` on `gmssl` to confirm it's looking for dynamic libraries rather than having them built into the binary during compilation. We can also use `readelf` to see that `libssl.so.1.1` is the first of four shared libraries required by GmSSL and accessed immediately upon running:
