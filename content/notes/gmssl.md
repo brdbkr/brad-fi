@@ -108,7 +108,7 @@ Dynamic section at offset 0xa1cd8 contains 29 entries:
 ```
 
 ## Modifying the binary
-We can also use `patchelf` to see which dependencies are required by `gmssl` and what its `RUNPATH` (or depricated `RPATH`) is. This way we can confirm that 'gmssl' first checks for `libssl.so.1.1`; we also see that `gmssl` has no set `RUNPATH`:
+We can also use `patchelf` to see which dependencies are required by `gmssl` and what its `RUNPATH` (or depricated `RPATH`) is. This way we can confirm that `gmssl` first checks for `libssl.so.1.1`; we also see that `gmssl` has no set `RUNPATH`:
 
 ```
 $ patchelf gmssl --print-rpath

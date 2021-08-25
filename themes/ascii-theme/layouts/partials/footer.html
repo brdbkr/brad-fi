@@ -1,5 +1,6 @@
 <footer>
-	<p>&copy; {{ now.Year }} <a href="{{ .Site.BaseURL }}"><b>{{ if .Site.Copyright }}{{ .Site.Copyright }}{{ else }}{{ .Site.Title }}{{ end }}</b></a>.
+	<p>{{ now.Month }} {{ now.Year }} BRAD BAKER<br/>
+	[B155 41DE E589 7A5B 64B1 0009 7388 7A1B DE37 3211]
 	{{- range .Site.Menus.footer }}
 	<a href="{{ .URL }}"><b>{{ .Name }}</b></a>.
         {{- end }}
