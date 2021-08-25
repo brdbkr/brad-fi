@@ -27,4 +27,5 @@ This project is licensed under the Unlicense.
 
 * [DomPizzie/README-Template.md](https://gist.github.com/DomPizzie/7a5ff55ffa9081f2de27c315f5018afc)
 * https://developer.apple.com/library/archive/featuredarticles/iPhoneURLScheme_Reference/PhoneLinks/PhoneLinks.html
+* https://anaulin.org/blog/hugo-raw-html-shortcode/
 * [Initial nginx setup](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04)
