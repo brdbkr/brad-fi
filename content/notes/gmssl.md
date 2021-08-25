@@ -52,8 +52,8 @@ $ tree /usr/local/gmssl -L 2
 /usr/local/gmssl
 ├── bin
 │   ├── c_rehash
-│   ├── gmssl			    # GmSSL binary
-│   └── openssl -> gmssl    # soft link
+│   ├── gmssl			# GmSSL binary
+│   └── openssl -> gmssl	# soft link
 ├── include
 │   └── openssl
 ├── lib
