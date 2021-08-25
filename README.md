@@ -8,6 +8,8 @@ Running on [hugo](https://github.com/gohugoio/hugo).
 * [links.brad.fi] - [Linkding](https://github.com/sissbruecker/linkding)
 * [docs.brad.fi] - [Teedy](https://github.com/sismics/docs) (f.k.a. Sismics Docs)
 
+* home network?
+
 ## Author
 
 Brad Baker  
