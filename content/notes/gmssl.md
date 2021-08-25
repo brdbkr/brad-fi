@@ -8,7 +8,29 @@ date: 2021-08-14T22:15:11Z
 [GmSSL](https://gmssl.org/) is an [open-source](https://github.com/guanzhi/GmSSL/) utility branched from OpenSSL and designed to support algorithms, hashes, and ciphers deemed suitable and thus mandated by the State Cryptography Administration of China, also referred to within the CCP as the Office of the Central Cryptography Leading Group. It is developed and maintained by Peking University's Information Security Laboratory and used by companies such as Baidu, Huawei, and Tencent. Development of [GmSSL V3](https://github.com/guanzhi/gmssl-v3-dev) is ongoing.
 
 ## Installation
-Installing GmSSL seems to work fine, but trying to run `gmssl` throws an error:
+Right off the bat, installation was tricky:
+
+```
+$ curl -LO "https://github.com/guanzhi/GmSSL/archive/master.zip"
+$ unzip master.zip ; cd GmSSL-master
+$ ./config
+gmssl "glob" is not exported by the File::Glob module
+...
+```
+
+This is caused by a line in two files, `Configure` and `test/build.info`:
+
+```
+use if $^O ne "VMS", 'File::Glob' => qw/glob/;
+```
+
+Now we change `qw/glob/;` to `qw/:glob/;`:
+
+```
+use if $^O ne "VMS", 'File::Glob' => qw/:glob/;
+```
+
+Now, installing GmSSL works fine but trying to run `gmssl` throws an error:
 
 ```
 $ curl -LO "https://github.com/guanzhi/GmSSL/archive/master.zip"
@@ -182,4 +204,5 @@ https://docs.oracle.com/cd/E19957-01/806-0641/6j9vuquit/index.html
 https://crypto.stackexchange.com/questions/11278/do-any-non-us-ciphers-exist
 https://www.cnblogs.com/wonz/p/14117225.html
 https://carnegieendowment.org/2019/05/30/encryption-debate-in-china-pub-79216
+https://github.com/guanzhi/GmSSL/issues/811
 https://stackoverflow.com/questions/13769141/can-i-change-rpath-in-an-already-compiled-binary
