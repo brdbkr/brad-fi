@@ -7,8 +7,8 @@ date: 2021-08-16T07:40:46Z
 
 ## Internet
 * [*GitHub*] [brdbkr](https://www.github.com/brdbkr)
-* [*HackTheBox*] trendata
-* [*CryptoHack*] trendata
+* [*HackTheBox*] [trendata](https://app.hackthebox.eu/profile/559589)
+* [*CryptoHack*] [trendata](https://cryptohack.org/user/trendata/)
 
 
 ## PGP
