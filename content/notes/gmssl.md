@@ -12,58 +12,58 @@ After downloading GmSSL from its GitHub repo, we adjust files to properly `make`
 ## Installation and configuration
 These directions should work on most unix systems; I used Kali Linux 5.10.0. Right off the bat, installation was tricky:
 
-```
+{{< highlight bash >}}
 $ curl -LO "https://github.com/guanzhi/GmSSL/archive/master.zip"
 $ unzip master.zip ; cd GmSSL-master
 $ ./config
 gmssl "glob" is not exported by the File::Glob module
 ...
-```
+{{< /highlight >}}
 
 This is caused by a line in two files, `Configure` and `test/build.info`:
 
-```
+{{< highlight bash >}}
 use if $^O ne "VMS", 'File::Glob' => qw/glob/;
-```
+{{< /highlight >}}
 
 Now we change `qw/glob/;` to `qw/:glob/;` in `Configure:18` and `test/build.info:339`:
 
-```
+{{< highlight bash >}}
 use if $^O ne "VMS", 'File::Glob' => qw/:glob/;
-```
+{{< /highlight >}}
 
 Now, installing GmSSL works fine but trying to run `gmssl` throws an error:
 
-```
+{{< highlight bash >}}
 $ curl -LO "https://github.com/guanzhi/GmSSL/archive/master.zip"
 $ unzip master.zip
 $ ./config ; make ; sudo make install
 ...
 $ gmssl version
 gmssl: symbol lookup error: gmssl: undefined symbol: BIO_debug_callback, version OPENSSL_1_1_0d
-```
+{{< /highlight >}}
 
 This is a problem with `libssl.so.1.1` and `libcrypto.so.1.1`, versions of which are required by both GmSSL and OpenSSL.
 
 As GmSSL is designed to serve as a full replacement for OpenSSL, its `Makefile` puts its own copies of all the necessary files, including libraries, in a folder with the `gmssl` binary, `/usr/local/gmssl` by default. It's laid out like so:
 
-```
+{{< highlight bash >}}
 $ tree /usr/local/gmssl -L 2
 /usr/local/gmssl
 ├── bin
 │   ├── c_rehash
-│   ├── gmssl			# GmSSL binary
-│   └── openssl -> gmssl	# soft link
+│   ├── gmssl                    # GmSSL binary
+│   └── openssl -> gmssl         # soft link
 ├── include
 │   └── openssl
 ├── lib
 │   ├── engines-1.1
 │   ├── libcrypto.a
 │   ├── libcrypto.so -> libcrypto.so.1.1
-│   ├── libcrypto.so.1.1	# dynamic library
+│   ├── libcrypto.so.1.1         # dynamic library
 │   ├── libssl.a
 │   ├── libssl.so -> libssl.so.1.1
-│   ├── libssl.so.1.1		# dynamic library
+│   ├── libssl.so.1.1            # dynamic library
 │   └── pkgconfig
 ├── share
 │   ├── doc
@@ -74,22 +74,22 @@ $ tree /usr/local/gmssl -L 2
     ├── openssl.cnf
     ├── openssl.cnf.dist
     └── private
-```
+{{< /highlight >}}
 
 An easy solution would be to add the directory containing the dynamic libraries to the `LD_LIBRARY_PATH` environment variable, but this simultaneously fixes GmSSL and may break OpenSSL. It would be better and more elegant to keep GmSSL entirely self-contained in its `/usr/local/gmssl` directory. 
 
 Depending on what's installed on your system, running `openssl` may instead call the soft link to `gmssl` (see tree above):
 
-```
+{{< highlight bash >}}
 $ gmssl version
 GmSSL 2.5.4 - OpenSSL 1.1.0d  19 Jun 2019
 $ openssl version
 GmSSL 2.5.4 - OpenSSL 1.1.0d  19 Jun 2019
-```
+{{< /highlight >}}
 
 How can we run `gmssl` and `openssl` separately, each referencing their own necessary libraries? It's obvious already, but we can run `file` on `gmssl` to confirm it's looking for dynamic libraries rather than having them built into the binary during compilation. We can also use `readelf` to see that `libssl.so.1.1` is the first of four shared libraries required by GmSSL and accessed immediately upon running:
 
-```
+{{< highlight bash >}}
 $ file gmssl
 gmssl: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=52bb0f6115f7c840ef03fa854fff33e97602da8a, for GNU/Linux 3.2.0, not stripped
 
@@ -105,12 +105,12 @@ Dynamic section at offset 0xa1cd8 contains 29 entries:
  0x0000000000000019 (INIT_ARRAY)         0xa25b0
  0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
 ...
-```
+{{< /highlight >}}
 
 ## Modifying the binary
 We can also use `patchelf` to see which dependencies are required by `gmssl` and what its `RUNPATH` (or depricated `RPATH`) is. This way we can confirm that `gmssl` first checks for `libssl.so.1.1`; we also see that `gmssl` has no set `RUNPATH`:
 
-```
+{{< highlight bash >}}
 $ patchelf gmssl --print-rpath
 [no output]
 $ patchelf --print-needed gmssl
@@ -118,11 +118,11 @@ libssl.so.1.1
 libcrypto.so.1.1
 libpthread.so.0
 libc.so.6
-```
+{{< /highlight >}}
 
 But which `libssl.so.1.1` file is GmSSL trying to use, if not the one inside the `/usr/local/gmssl` directory? We can run `ldd` in verbose mode to view the full paths of each library, revealing that GmSSL is instead using the libraries in `/usr/local/lib`. `ldd` further breaks down each library by version, allowing us to match the original error thrown by GmSSL with the output `libcrypto.so.1.1 (OPENSSL_1_1_0d)`.
 
-```
+{{< highlight bash >}}
 $ ldd -v gmssl
         linux-vdso.so.1 (0x00007fff817d2000)
         libssl.so.1.1 => /usr/local/lib/libssl.so.1.1 (0x00007f42660f4000)
@@ -153,53 +153,53 @@ $ ldd -v gmssl
                 libcrypto.so.1.1 (OPENSSL_1_1_1) => /usr/local/lib/libcrypto.so.1.1
                 libcrypto.so.1.1 (OPENSSL_1_1_0) => /usr/local/lib/libcrypto.so.1.1
         ...
-```
+{{< /highlight >}}
 
 Using `nm` we can enumerate all the symbols in a given dynamic library (`.so`) file:
 
-```
+{{< highlight bash >}}
 $ nm /usr/local/gmssl/lib/libcrypto.so.1.1
 0000000000090a60 T a2d_ASN1_OBJECT
 000000000009d7c0 T a2i_ASN1_ENUMERATED
 000000000009d470 T a2i_ASN1_INTEGER
 ... # continues to 7,738 lines
-```
+{{< /highlight >}}
 
 `nm` gives us thousands of lines of output; luckily we can `grep` the output for `BIO_debug_callback`, the exact symbol GmSSL says is undefined:
 
-```
+{{< highlight bash >}}
 $ nm /usr/local/gmssl/lib/libcrypto.so.1.1 | grep -i bio_debug
 00000000000ae2d0 T BIO_debug_callback
-```
+{{< /highlight >}}
 
 Looks like the program will run if we can point it to the correct library, GmSSL's version of `libcrypto.so.1.1`. To check, let's compare that file with OpenSSL's version:
 
-```
+{{< highlight bash >}}
 $ nm /usr/local/lib/libcrypto.so.1.1
 nm: /usr/local/lib/libcrypto.so.1.1: no symbols
-```
+{{< /highlight >}}
 
 The problem is confirmed - GmSSL is looking in OpenSSL's library for symbols that don't exist. So how can we change where GmSSL looks for runtime libraries? A common tool is `chrpath` which sadly won't work for us, as our GmSSL binary currently lacks any `RUNPATH`/`RPATH` tags:
 
-```
+{{< highlight bash >}}
 $ readelf -d gmssl | grep -E "RUNPATH|RPATH"
 [no output]
-```
+{{< /highlight >}}
 
 Instead we can run `patchelf` to modify the `RUNPATH`, which lists directories containing dependency libraries:
 
-```
+{{< highlight bash >}}
 $ sudo patchelf --force-rpath --set-rpath /usr/local/gmssl/lib gmssl
-```
+{{< /highlight >}}
 
 And... success! GmSSL and OpenSSL now run perfectly side-by-side:
 
-```
+{{< highlight bash >}}
 $ gmssl version
 GmSSL 2.5.4 - OpenSSL 1.1.0d  19 Jun 2019
 $ openssl version
 OpenSSL 1.1.1k  25 Mar 2021
-```
+{{< /highlight >}}
 
 ## References and further reading
 * [ELF Loaders, Libraries and Executables on Linux](https://trugman-internals.com/elf-loaders-libraries-executables/) by Daniel Trugman

@@ -3,16 +3,16 @@ title: "Contact"
 date: 2021-08-16T07:40:46Z
 ---
 ## Email
-* brad [at] brad [dot] fi
+> brad [at] brad.fi
 
 ## Internet
-* [*GitHub*] [brdbkr](https://www.github.com/brdbkr)
-* [*HackTheBox*] [trendata](https://app.hackthebox.eu/profile/559589)
-* [*CryptoHack*] [trendata](https://cryptohack.org/user/trendata/)
-
+> [*CryptoHack*] . . [trendata](https://cryptohack.org/user/trendata/)\
+> [*GitHub*] . . . . [brdbkr](https://www.github.com/brdbkr)\
+> [*HackTheBox*] . . [trendata](https://app.hackthebox.eu/profile/559589)\
+> [*LinkedIn*] . . . [brdbkr](https://www.linkedin.com/in/brdbkr/)
 
 ## PGP
-* PGP public key [[.asc](/bradbaker-pubkey.asc)]
+> PGP public key [[.asc](/bradbaker-pubkey.asc)]
 ```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v2

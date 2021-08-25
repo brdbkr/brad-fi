@@ -1,7 +1,7 @@
 # Brad Baker
-# [HTML] [[PDF](https://www.example.com)] [MD]
+# [HTML] [[PDF](https://www.example.com)]
 # Atlanta GA
-# brad [at] brad [dot] fi
+# brad [at] brad.fi
 ----
 
 ## Education
