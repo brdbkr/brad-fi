@@ -76,8 +76,16 @@ $ tree /usr/local/gmssl -L 2
 
 An easy solution would be to add the directory containing the dynamic libraries to the `LD_LIBRARY_PATH` environment variable, but this simultaneously fixes GmSSL and may break OpenSSL. It would be better and more elegant to keep GmSSL entirely self-contained in its `/usr/local/gmssl` directory. 
 
-## Inspecting the `gmssl` binary
-It's obvious already, but we can run `file` on `gmssl` to confirm it's looking for dynamic libraries rather than having them built into the binary during compilation. We can also use `readelf` to see that `libssl.so.1.1` is the first of four shared libraries required by GmSSL and accessed immediately upon running:
+Depending on what's installed on your system, running `openssl` may instead call the soft link to `gmssl`:
+
+```
+$ gmssl version
+GmSSL 2.5.4 - OpenSSL 1.1.0d  19 Jun 2019
+$ openssl version
+GmSSL 2.5.4 - OpenSSL 1.1.0d  19 Jun 2019
+```
+
+How can we run `gmssl` and `openssl` separately, each referencing their own necessary libraries? It's obvious already, but we can run `file` on `gmssl` to confirm it's looking for dynamic libraries rather than having them built into the binary during compilation. We can also use `readelf` to see that `libssl.so.1.1` is the first of four shared libraries required by GmSSL and accessed immediately upon running:
 
 ```
 $ file gmssl
