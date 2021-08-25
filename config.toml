@@ -1,28 +1,23 @@
 baseURL = 'https://www.brad.fi/'
 languageCode = 'en-us'
 title = 'Brad Baker - brad.fi'
-theme = "smol"
+theme = "ascii-theme"
 publishDir = '/var/www/brad-fi/html'
 copyright = "©"
+contentDir = 'content'
 
 [permalinks]
 '/' = '/:filename/'
 
 [frontmatter]
-lastmod = [':git', 'lastmod', 'date', 'publishDate']
 publishDate = ['publishDate', 'date']
-
-# Parameters
-[params]
-    subtitle = "Your blog subtitle goes here!"
-    dateFmt = "02.01.2006 15:04"
 
 # Header
 [menu]
   [[menu.main]]
-        identifier = "about"
-        name = "About"
-        url = "/about/"
+        identifier = "resume"
+        name = "Resume"
+        url = "/resume/"
         weight = 1 
 
   [[menu.main]]

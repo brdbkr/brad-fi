@@ -1,13 +1,18 @@
 ---
 title: "Contact"
 date: 2021-08-16T07:40:46Z
-draft: true
 ---
-* [brad@brad.fi](mailto:brad@brad.fi)
-* IRC? Matrix?
+## Email
+* brad [at] brad [dot] fi
 
-* [PGP key] [.pem]
+## Internet
+* Github: brdbkr
+* HackTheBox: trendata
+* CryptoHack: trendata
 
-* Github - brdbkr
-* HackTheBox - trendata
-* CryptoHack - trendata
+
+## PGP
+* public key [[.pem](https://www.example.com)]
+```
+=========
+```

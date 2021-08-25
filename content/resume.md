@@ -1,10 +1,12 @@
 # Brad Baker
+# Atlanta GA
 
 ## Education
-**Georgia Tech Cybersecurity Bootcamp**		August 2021
+**[Georgia Tech Cyber and Network Security Bootcamp](https://bootcamp.pe.gatech.edu/cybersecurity/)**
+* August 2021
 
-**Arizona State University**			December 2017
-> Geography (BA)
+**[Arizona State University](https://www.asu.edu)**, Geography (BA)
+* December 2017
 
 ----
 
