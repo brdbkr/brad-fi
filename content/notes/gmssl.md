@@ -52,8 +52,8 @@ $ tree /usr/local/gmssl -L 2
 /usr/local/gmssl
 ├── bin
 │   ├── c_rehash
-│   ├── gmssl			# GmSSL binary
-│   └── openssl -> gmssl
+│   ├── gmssl			    # GmSSL binary
+│   └── openssl -> gmssl    # soft link
 ├── include
 │   └── openssl
 ├── lib
@@ -78,7 +78,7 @@ $ tree /usr/local/gmssl -L 2
 
 An easy solution would be to add the directory containing the dynamic libraries to the `LD_LIBRARY_PATH` environment variable, but this simultaneously fixes GmSSL and may break OpenSSL. It would be better and more elegant to keep GmSSL entirely self-contained in its `/usr/local/gmssl` directory. 
 
-Depending on what's installed on your system, running `openssl` may instead call the soft link to `gmssl`:
+Depending on what's installed on your system, running `openssl` may instead call the soft link to `gmssl` (see tree above):
 
 ```
 $ gmssl version
