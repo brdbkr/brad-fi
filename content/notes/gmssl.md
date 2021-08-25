@@ -199,11 +199,12 @@ $ openssl version
 OpenSSL 1.1.1k  25 Mar 2021
 ```
 
-https://trugman-internals.com/elf-loaders-libraries-executables/
-https://docs.oracle.com/cd/E19957-01/806-0641/6j9vuquit/index.html
-https://crypto.stackexchange.com/questions/11278/do-any-non-us-ciphers-exist
-https://www.cnblogs.com/wonz/p/14117225.html
-https://carnegieendowment.org/2019/05/30/encryption-debate-in-china-pub-79216
-https://github.com/guanzhi/GmSSL/issues/811
-https://www.fatalerrors.org/a/0tl00jk.html
-https://stackoverflow.com/questions/13769141/can-i-change-rpath-in-an-already-compiled-binary
+## References and further reading
+* [ELF Loaders, Libraries and Executables on Linux](https://trugman-internals.com/elf-loaders-libraries-executables/) by Daniel Trugman
+* [Linker and Libraries Guide, Ch. 3: Runtime Linker](https://docs.oracle.com/cd/E19957-01/806-0641/6j9vuquit/index.html) from Oracle
+* [Do any non-US ciphers exist?](https://crypto.stackexchange.com/questions/11278/do-any-non-us-ciphers-exist) on Cryptography StackExchange
+* [GmSSL快速上手指南](https://www.cnblogs.com/wonz/p/14117225.html) [zh] by Wonz
+* [The Encryption Debate in China](https://carnegieendowment.org/2019/05/30/encryption-debate-in-china-pub-79216) by Lorand Laskai and Adam Segal for the Carnegie Endowment for International Peace
+* [guanzhi/GmSSL Issue #811, mac 下系统检查无法通过](https://github.com/guanzhi/GmSSL/issues/811)
+* [Construction of GmSSL development environment and generation of double certificates](https://www.fatalerrors.org/a/0tl00jk.html) by ljn866 for FatalErrors
+* [Can I change 'rpath' in an already compiled binary?](https://stackoverflow.com/questions/13769141/can-i-change-rpath-in-an-already-compiled-binary) on Stack Overflow
