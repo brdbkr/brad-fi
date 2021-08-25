@@ -3,12 +3,14 @@ title: "Installing and using GmSSL on a Kali VM"
 date: 2021-08-14T22:15:11Z
 ---
 # Installing and using GmSSL on a Kali VM
+## Overview
+After downloading GmSSL from its GitHub repo, we adjust files to properly `make` the binary. When GmSSL's dynamic libraries conflict with OpenSSL's, we use `ldd`, `nm`, and `patchelf` to manually change GmSSL's `RUNPATH`, allowing GmSSL and OpenSSL to run independently from one another.
 
 ## What is GmSSL?
 [GmSSL](https://gmssl.org/) is an [open-source](https://github.com/guanzhi/GmSSL/) utility branched from OpenSSL and designed to support algorithms, hashes, and ciphers deemed suitable and thus mandated by the State Cryptography Administration of China, also referred to within the CCP as the Office of the Central Cryptography Leading Group. It is developed and maintained by Peking University's Information Security Laboratory and used by companies such as Baidu, Huawei, and Tencent. Development of [GmSSL V3](https://github.com/guanzhi/gmssl-v3-dev) is ongoing.
 
-## Installation
-Right off the bat, installation was tricky:
+## Installation and configuration
+These directions should work on most unix systems; I used Kali Linux 5.10.0. Right off the bat, installation was tricky:
 
 ```
 $ curl -LO "https://github.com/guanzhi/GmSSL/archive/master.zip"
@@ -105,7 +107,7 @@ Dynamic section at offset 0xa1cd8 contains 29 entries:
 ...
 ```
 
-## Using `ldd` and `patchelf` to modify the binary
+## Modifying the binary
 We can also use `patchelf` to see which dependencies are required by `gmssl` and what its `RUNPATH` (or depricated `RPATH`) is. This way we can confirm that 'gmssl' first checks for `libssl.so.1.1`; we also see that `gmssl` has no set `RUNPATH`:
 
 ```
@@ -184,7 +186,7 @@ $ readelf -d gmssl | grep -E "RUNPATH|RPATH"
 [no output]
 ```
 
-Instead we can install and run `patchelf` to modify the `RUNPATH`, which lists directories containing dependency libraries:
+Instead we can run `patchelf` to modify the `RUNPATH`, which lists directories containing dependency libraries:
 
 ```
 $ sudo patchelf --force-rpath --set-rpath /usr/local/gmssl/lib gmssl
