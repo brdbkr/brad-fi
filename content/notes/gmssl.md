@@ -98,8 +98,6 @@ Dynamic section at offset 0xa1cd8 contains 29 entries:
 ```
 
 ## Using `ldd` and `patchelf` to modify the binary
-https://www.fatalerrors.org/a/0tl00jk.html
-
 We can also use `patchelf` to see which dependencies are required by `gmssl` and what its `RUNPATH` (or depricated `RPATH`) is. This way we can confirm that 'gmssl' first checks for `libssl.so.1.1`; we also see that `gmssl` has no set `RUNPATH`:
 
 ```
@@ -199,4 +197,5 @@ https://crypto.stackexchange.com/questions/11278/do-any-non-us-ciphers-exist
 https://www.cnblogs.com/wonz/p/14117225.html
 https://carnegieendowment.org/2019/05/30/encryption-debate-in-china-pub-79216
 https://github.com/guanzhi/GmSSL/issues/811
+https://www.fatalerrors.org/a/0tl00jk.html
 https://stackoverflow.com/questions/13769141/can-i-change-rpath-in-an-already-compiled-binary
