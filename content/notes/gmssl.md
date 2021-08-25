@@ -1,8 +1,8 @@
----
-title: "Installing and using GmSSL on a Kali VM"
++++
+title: "Installing and using GmSSL"
 date: 2021-08-14T22:15:11Z
----
-# Installing and using GmSSL on a Kali VM
++++
+# Installing and using GmSSL
 ## Overview
 After downloading GmSSL from its GitHub repo, we adjust files to properly `make` the binary. When GmSSL's dynamic libraries conflict with OpenSSL's, we use `ldd`, `nm`, and `patchelf` to manually change GmSSL's `RUNPATH`, allowing GmSSL and OpenSSL to run independently from one another.
 
