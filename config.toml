@@ -27,7 +27,7 @@ publishDate = ['publishDate', 'date']
         weight = 2 
 
   [[menu.main]]
-        identifier = "notes"
-        name = "Notes"
-        url = "/notes/"
+        identifier = "colophon"
+        name = "Colophon"
+        url = "/colophon/"
         weight = 3

@@ -30,3 +30,9 @@ img {display: block; max-width: 100%; height: auto; margin: auto}
 .headnavbar a:link{color: var(--textcolor)}
 .headnavbar a:visited{color: var(--textcolor)}
 .centerfoot {display: flex; justify-content: center;}
+#headlogo1 {color:var(--logo1);}
+#headlogo2 {color:var(--logo2);}
+#headlogo3 {color:var(--logo3);}
+#headlogo4 {color:var(--logo4);}
+#headlogo5 {color:var(--logo5);}
+#headlogo6 {color:var(--logo6);}
