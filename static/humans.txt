@@ -1,0 +1,7 @@
+/* TEAM */
+Your title: Brad Baker
+Site: brad [at] brad.fi
+Location: Atlanta GA
+
+/* SITE */
+Software: hugo

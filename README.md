@@ -8,8 +8,21 @@ Running on [hugo](https://github.com/gohugoio/hugo).
 * [links.brad.fi] - [Linkding](https://github.com/sissbruecker/linkding)
 
 ## Ideas and to-do
+* 1MB, 512kb, 250kb clubs
 * home network - conflict w/ keys?
 * IPFS mirror
+* add: Codeberg, Mastodon
+* gemini protocol? telnet? gopher?
+> https://sylvaindurand.org/gemini-and-hugo/
+* RSS
+* key: MIT; .asc; Keyoxide; [webkey dir](https://www.tyil.nl/post/2020/05/30/setting-up-pgp-wkd/)
+* Tor
+* Telegram?
+* /now page?
+* validate HTML
+* robots.txt, humans.txt, data.txt
+* Geekring, Hotline Webring
+* he/him
 
 ### Pingdom
 * Compress components with gzip
