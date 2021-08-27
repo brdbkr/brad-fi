@@ -9,9 +9,10 @@
 <!--56x6-->
 	<nav class="headnavbar">
 			<a href="/"><b>Home</b></a>
+			{{ $currentPage := . }}
 			{{ with .Site.Menus.main }}
 			{{ range . }}
-			&nbsp;⁛&nbsp;<a href="{{ .URL | relURL }}"><b>{{ .Name }}</b></a>
+			&nbsp;⁛&nbsp;<a href="{{ .URL | relURL }}" id="{{ if $currentPage.IsMenuCurrent "main" . }}headlogo1{{ end }}"><b>{{ .Name }}</b></a>
 			{{ end }}
 	</nav>
 	{{ end }}

@@ -13,7 +13,7 @@ Member of the [1MB Club](https://1mb.club), [512KB Club](https://512kb.club/), [
 # Site tests
 > [*[CryptCheck](https://tls.imirhil.fr/https/brad.fi)*]. . . . . A+\
 > [*[GTmetrix](https://gtmetrix.com)*]. . . . . . A\
-> [*[HSTS Preload](https://hstspreload.org/?domain=brad.fi)*]. . . . &check; (pending)\
+> [*[HSTS Preload](https://hstspreload.org/?domain=brad.fi)*]. . . . <abbr title="Pending">&check;</abbr>\
 > [*[ImmuniWeb](https://www.immuniweb.com/ssl/brad.fi)*] . . . . . A+\
 > [*[Mozilla HTTP](https://observatory.mozilla.org/analyze/brad.fi)*]. . . . A+\
 > [*[Pingdom](https://tools.pingdom.com)*] . . . . . . A\

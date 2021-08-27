@@ -1,14 +1,15 @@
 ---
-title: "Contact"
+title: "About"
 date: 2021-08-16T07:40:46Z
 ---
-# Email
-> brad [at] brad.fi
+# Brad Baker
+Cybersecurity, development, sysops. Based in Atlanta GA.
 
-# Phone
-> +1 404-555-3971
+> [EMAIL]. . . . . brad (at) brad.fi\
+> [PHONE]. . . . . +1&nbsp;470-555-7052
 
 # Internet
+> [*Bitbucket*]. . . brdbkr\
 > [*CryptoHack*] . . [trendata](https://cryptohack.org/user/trendata/)\
 > [*GitHub*] . . . . [brdbkr](https://www.github.com/brdbkr)\
 > [*GitLab*] . . . . [brdbkr](https://gitlab.com/brdbkr)\

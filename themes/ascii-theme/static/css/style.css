@@ -1,5 +1,5 @@
 html {overflow-y: scroll}
-:root { --bgcolor: #F0EBD8; --fontcolor: #0D1321; --linkcolor: #1D2D44; --visitedcolor: #3E5C76; --precolor: #AF751D; --prebgcolor: #000;
+:root { --bgcolor: #F0EBD8; --fontcolor: #0D1321; --linkcolor: #405DA0; --visitedcolor: #405DA0; --precolor: #AF751D; --prebgcolor: #000; --hovercolor: #F77F00;
 --logo1: #4D627E;
 --logo2: #40526B;
 --logo3: #334259;
@@ -7,7 +7,7 @@ html {overflow-y: scroll}
 --logo5: #1A2334;
 --logo6: #0D1321;
 }
-@media (prefers-color-scheme: dark) { :root { --bgcolor: #0D1321; --fontcolor: #F0EBD8; --linkcolor: #99ABC2; --visitedcolor: #6681A3; --precolor: #fff; --prebgcolor: #383838;
+@media (prefers-color-scheme: dark) { :root { --bgcolor: #0D1321; --fontcolor: #F0EBD8; --linkcolor: #B3BFD1; --visitedcolor: #B3BFD1; --precolor: #fff; --prebgcolor: #383838; --hovercolor: #E77728;
 --logo1: #A8B6C6;
 --logo2: #B6C0C9;
 --logo3: #C5CBCD;
@@ -15,7 +15,7 @@ html {overflow-y: scroll}
 --logo5: #E2E0D4;
 --logo6: #F0EBD8;
 }}
-body{max-width:800px;margin:auto auto;padding:0 10px;font:14px/1.5 monospace;color:var(--fontcolor); background: var(--bgcolor)}a:link{color: var(--linkcolor)}a:visited{color: var(--visitedcolor)}a:active{color: var(--visitedcolor)}h1,h2,h3{line-height:1.2}
+body{max-width:800px;margin:auto auto;padding:0 10px;font:16px/1.5 monospace;color:var(--fontcolor); background: var(--bgcolor)}a:link{color: var(--linkcolor)}a:visited{color: var(--visitedcolor)}a:hover{color: var(--hovercolor)}a:active{color: var(--hovercolor)}h1,h2,h3{line-height:1.2}
 p > code{color: var(--precolor); background: var(--prebgcolor); padding:2px}
 pre{color: var(--precolor); background: var(--prebgcolor); padding:24px; overflow-x: auto}
 article{padding:24px 0}
@@ -29,6 +29,7 @@ img {display: block; max-width: 100%; height: auto; margin: auto}
 .headnavbar {text-transform: uppercase; font: 16px/1.5 monospace; display: flex; justify-content: center;}
 .headnavbar a:link{color: var(--textcolor)}
 .headnavbar a:visited{color: var(--textcolor)}
+.headnavbar a:hover{color: var(--textcolor)}
 .centerfoot {display: flex; justify-content: center;}
 #headlogo1 {color:var(--logo1);}
 #headlogo2 {color:var(--logo2);}
@@ -36,3 +37,4 @@ img {display: block; max-width: 100%; height: auto; margin: auto}
 #headlogo4 {color:var(--logo4);}
 #headlogo5 {color:var(--logo5);}
 #headlogo6 {color:var(--logo6);}
+.resumelocation {color:var(--logo1);}
