@@ -6,9 +6,15 @@ Running on [hugo](https://github.com/gohugoio/hugo).
 
 * [git.brad.fi] - [Gogs](https://github.com/gogs/gogs)
 * [links.brad.fi] - [Linkding](https://github.com/sissbruecker/linkding)
-* [docs.brad.fi] - [Teedy](https://github.com/sismics/docs) (f.k.a. Sismics Docs)
 
-* home network?
+## Ideas and to-do
+* home network - conflict w/ keys?
+* IPFS mirror
+
+### Pingdom
+* Compress components with gzip
+* Add Expires headers
+* Avoid URL redirects - https?
 
 ## Author
 
