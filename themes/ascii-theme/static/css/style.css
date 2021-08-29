@@ -1,5 +1,5 @@
 html {overflow-y: scroll}
-:root { --bgcolor: #F0EBD8; --fontcolor: #0D1321; --linkcolor: #405DA0; --visitedcolor: #405DA0; --precolor: #AF751D; --prebgcolor: #000; --hovercolor: #F77F00;
+:root { --bgcolor: #F0EBD8; --fontcolor: #0D1321; --linkcolor: #405DA0; --visitedcolor: #405DA0; --precolor: #000; --prebgcolor: #E2D9B6; --hovercolor: #F77F00;
 --logo1: #4D627E;
 --logo2: #40526B;
 --logo3: #334259;
@@ -18,6 +18,7 @@ html {overflow-y: scroll}
 body{max-width:800px;margin:auto auto;padding:0 10px;font:16px/1.5 monospace;color:var(--fontcolor); background: var(--bgcolor)}a:link{color: var(--linkcolor)}a:visited{color: var(--visitedcolor)}a:hover{color: var(--hovercolor)}a:active{color: var(--hovercolor)}h1,h2,h3{line-height:1.2}
 p > code{color: var(--precolor); background: var(--prebgcolor); padding:2px}
 pre{color: var(--precolor); background: var(--prebgcolor); padding:24px; overflow-x: auto}
+.clearpre{color: var(--fontcolor); background: var(--bgcolor); padding: 24px; overflow-x: auto}
 article{padding:24px 0}
 .center {display: block;margin-left: auto;margin-right: auto;width: 100%;}
 figcaption {color: #888; font: 12px/1.5 monospace; text-align: center;}
@@ -30,11 +31,13 @@ img {display: block; max-width: 100%; height: auto; margin: auto}
 .headnavbar a:link{color: var(--textcolor)}
 .headnavbar a:visited{color: var(--textcolor)}
 .headnavbar a:hover{color: var(--textcolor)}
-.centerfoot {display: flex; justify-content: center;}
+.centerfoot {display: flex; justify-content: center; font: 11px/1.5 monospace;}
 #headlogo1 {color:var(--logo1);}
 #headlogo2 {color:var(--logo2);}
 #headlogo3 {color:var(--logo3);}
 #headlogo4 {color:var(--logo4);}
 #headlogo5 {color:var(--logo5);}
 #headlogo6 {color:var(--logo6);}
+.resumeheader {display: grid; grid-template: 1fr 1fr/ 1fr 1fr; justify-content: space-between;}
+.rightside {text-align: end;}
 .resumelocation {color:var(--logo1);}

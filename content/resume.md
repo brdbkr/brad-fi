@@ -1,8 +1,16 @@
-# Brad Baker
-# [HTML] [[PDF](https://www.example.com)]
-# Atlanta GA
-# brad [at] brad.fi
+---
+Date: August 2021
+---
+{{< rawhtml >}}
+<div class="resumeheader">
+<div>Brad Baker</div>
+<div class="rightside">brad@brad.fi</div>
+<div>Atlanta GA</div>
+<div class="rightside">[<a href="https://www.example.com">.PDF</a>]</div>
+</div>
+{{< /rawhtml >}}
 ----
+<hr>
 
 ## Education
 **[Georgia Tech Cyber and Network Security Bootcamp](https://bootcamp.pe.gatech.edu/cybersecurity/)**\
