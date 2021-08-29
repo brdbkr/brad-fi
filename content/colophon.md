@@ -1,3 +1,6 @@
+---
+type: landing
+---
 # Colophon
 brad.fi was last generated on {{< date >}} with [Hugo](https://gohugo.io/) {{< hugoversion >}}
 

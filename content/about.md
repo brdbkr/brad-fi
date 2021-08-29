@@ -1,12 +1,13 @@
 ---
 title: "About"
 date: 2021-08-16T07:40:46Z
+type: landing
 ---
 # Brad Baker
-Cybersecurity, development, sysops. Based in Atlanta GA.
+Cybersecurity, development, sysops. Based in Atlanta GA. He/him.
 
-> [EMAIL]. . . . . brad (at) brad.fi\
-> [PHONE]. . . . . +1&nbsp;470-555-7052
+> [*email*]. . . . . brad (at) brad.fi\
+> [*phone*]. . . . . +1&nbsp;470-555-7052
 
 # Internet
 > [*Bitbucket*]. . . [brdbkr](https://bitbucket.org/brdbkr/)\

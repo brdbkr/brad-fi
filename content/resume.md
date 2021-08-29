@@ -1,11 +1,13 @@
 ---
+Title: Resume
 Date: August 2021
+Type: landing
 ---
 {{< rawhtml >}}
 <div class="resumeheader">
 <div>Brad Baker</div>
-<div class="rightside">brad@brad.fi</div>
-<div>Atlanta GA</div>
+<div class="rightside">Atlanta GA</div>
+<div><a href="mailto:brad@brad.fi">brad@brad.fi</a></div>
 <div class="rightside">[<a href="https://www.example.com">.PDF</a>]</div>
 </div>
 {{< /rawhtml >}}
