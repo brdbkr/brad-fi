@@ -8,7 +8,6 @@ Running on [hugo](https://github.com/gohugoio/hugo).
 * [links.brad.fi] - [Linkding](https://github.com/sissbruecker/linkding)
 
 ## Ideas and to-do
-* 1MB, 512kb, 250kb clubs
 * home network - conflict w/ keys?
 * IPFS mirror
 * add: Codeberg, Mastodon
@@ -20,12 +19,10 @@ Running on [hugo](https://github.com/gohugoio/hugo).
 * Telegram?
 * /now page?
 * validate HTML
-* robots.txt, humans.txt, data.txt
-* Geekring, Hotline Webring
-* he/him
+* humans.txt, data.txt
+* [Geekring](http://geekring.net/), [Hotline Webring](https://hotlinewebring.club/), [XXIIVV](https://webring.xxiivv.com/), [Low Tech](https://emreed.net/LowTech_Directory.html)
 
 ### Pingdom
-* Compress components with gzip
 * Add Expires headers
 * Avoid URL redirects - https?
 
